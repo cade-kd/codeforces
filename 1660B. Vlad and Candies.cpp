@@ -91,66 +91,26 @@ void int_outs(T fst_ele, Args ...others) {
   spaceout;
   int_outs(others...);
 }
-const int N = 200005;
-int a[N], twoCnt[N];
+int a[200005];
 void solve(int case_t) {
   int n;
   read_int(n);
-  repeat(i, 0, n - 1) read_int(a[i]);
-  a[n] = 0;
-  twoCnt[0] = 0;
   repeat(i, 1, n) {
-    twoCnt[i] = twoCnt[i - 1] + ((a[i - 1] & 1) == 0);
+    read_int(a[i]);
   }
-  int maxTwoCnt = 0;
-  int left = -1;
-  int right = -1;
 
-  for (int i = 0, j = 0; i < n; i = j) {
-    while (i < n && a[i] == 0) {
-      ++i;
-    }
-
-    int curFlag = 0;
-    int firstNeg = -1, lastNeg = -1;
-    j = i;
-    while (a[j] != 0) {
-      if (a[j] < 0) {
-        curFlag ^= 1;
-        lastNeg = j;
-        if (firstNeg == -1) firstNeg = j;
-      }
-      ++j;
-    }
-
-    if (curFlag == 0) {
-      if (twoCnt[j] - twoCnt[i] > maxTwoCnt) {
-        maxTwoCnt = twoCnt[j] - twoCnt[i];
-        left = i;
-        right = j - 1;
-      }
-    }
-    else {
-      int cnt = twoCnt[j] - twoCnt[firstNeg + 1];
-      if (cnt > maxTwoCnt) {
-        maxTwoCnt = cnt;
-        left = firstNeg + 1;
-        right = j - 1;
-      }
-
-      cnt = twoCnt[lastNeg] - twoCnt[i];
-      if (cnt > maxTwoCnt) {
-        maxTwoCnt = cnt;
-        left = i;
-        right = lastNeg - 1;
-      }
-    }
+  if (n == 1) {
+    puts(a[1] == 1 ? "YES" : "NO");
+    return;
   }
-  if (left == -1) {
-    printf("0 %d\n", n);
+
+  sort(a + 1, a + 1 + n);
+  // cout << "n -  x" << a[n] - a[n - 1] << endl;
+  if (a[n] - a[n - 1] > 1) {
+    puts("NO");
   }
   else {
-    printf("%d %d\n", left, n - right - 1);
+    puts("YES");
   }
 
 }
