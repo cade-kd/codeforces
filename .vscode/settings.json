@@ -2,6 +2,7 @@
   "files.associations": {
     "ios": "cpp",
     "xiosbase": "cpp",
-    "memory": "cpp"
+    "memory": "cpp",
+    "algorithm": "cpp"
   }
 }
