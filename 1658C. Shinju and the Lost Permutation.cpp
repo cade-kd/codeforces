@@ -111,7 +111,7 @@ void solve(int case_t) {
   else {
     repeat(i, 2, n) {
       pos = pos % n + 1;
-      if (c[pos] - c[pos - 1] > 1) {
+      if (c[pos] - a[pos - 1] > 1) {
         puts("NO");
         return;
       }
