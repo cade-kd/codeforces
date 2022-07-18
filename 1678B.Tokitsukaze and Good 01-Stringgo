@@ -1,0 +1,44 @@
+package main
+
+import (
+	"bufio"
+	. "fmt"
+	"io"
+	"os"
+)
+
+func solve(in io.Reader, out io.Writer) {
+	var n int
+	var s string
+	Fscan(in, &n, &s)
+
+	var prev uint8 = '2'
+	notEqCnt := 0
+	segmentCnt := 0
+
+	for i := 0; i < n; i += 2 {
+		if s[i] != s[i+1] {
+			notEqCnt++
+		} else if prev != s[i] {
+			prev = s[i]
+			segmentCnt++
+		}
+	}
+	if segmentCnt == 0 {
+		segmentCnt = 1
+	}
+
+	Fprintf(out, "%d %d\n", notEqCnt, segmentCnt)
+	//Fprintln(out, notEqCnt)
+
+}
+
+func main() {
+	in := bufio.NewReader(os.Stdin)
+	out := bufio.NewWriter(os.Stdout)
+	defer out.Flush()
+	var T int
+	for Fscan(in, &T); T > 0; T-- {
+		solve(in, out)
+	}
+}
